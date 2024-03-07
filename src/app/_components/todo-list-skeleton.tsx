@@ -1,6 +1,6 @@
 import { Skeleton } from '~/components/ui/skeleton';
 
-export default function HomePageLoading() {
+export function TodoListSkeleton() {
   return (
     <main className='container py-20'>
       <h1 className='mb-6 text-3xl font-semibold'>Todo List</h1>

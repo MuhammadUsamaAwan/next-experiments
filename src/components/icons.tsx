@@ -5,6 +5,7 @@ import {
   Cross2Icon,
   DotsHorizontalIcon,
   ImageIcon,
+  TrashIcon,
 } from '@radix-ui/react-icons';
 
 export const Icons = {
@@ -14,4 +15,5 @@ export const Icons = {
   cross: Cross2Icon,
   dotsHorizontal: DotsHorizontalIcon,
   placeholder: ImageIcon,
+  trash: TrashIcon,
 };
