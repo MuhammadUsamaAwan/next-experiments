@@ -1,5 +1,4 @@
 import { getTodos } from '~/lib/fetchers';
-import { Button } from '~/components/ui/button';
 import {
   Pagination,
   PaginationContent,
@@ -8,6 +7,7 @@ import {
   PaginationPrevious,
 } from '~/components/ui/pagination';
 
+import CreateTodo from './create-todo';
 import { Todo } from './todo';
 
 type TodoListProps = {
@@ -22,7 +22,7 @@ export async function TodoList({ page, limit }: TodoListProps) {
     <main className='container py-20'>
       <div className='flex items-center justify-between'>
         <h1 className='mb-6 text-3xl font-semibold'>Todo List</h1>
-        <Button>Add New</Button>
+        <CreateTodo />
       </div>
       <div className='mb-6 space-y-4'>
         {todos.map(todo => (
