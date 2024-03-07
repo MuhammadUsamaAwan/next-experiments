@@ -1,6 +1,6 @@
 import { Checkbox } from '~/components/ui/checkbox';
 import { db } from '~/db';
-import { Todo } from '~/db/schema';
+import { Todo, todos } from '~/db/schema';
 import {
   Pagination,
   PaginationContent,
@@ -8,13 +8,35 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "~/components/ui/pagination"
+import { Button } from '~/components/ui/button';
+import { faker } from '@faker-js/faker';
+import { eq } from 'drizzle-orm';
 
 export async function getTodos(page = 1, limit = 10) {
+  await new Promise(resolve => setTimeout(resolve, 5000));
   return db.query.todos.findMany({
     limit,
     offset: (page - 1) * limit,
   });
 }
+
+export async function addTodo() {
+  "use server"
+  await db.insert(todos).values({
+    text: faker.lorem.sentence(),
+  })
+}
+
+export async function completeTodo(id: string) {
+  "use server"
+  await db.update(todos).set({ completed: true }).where(eq(todos.id, id));
+}
+
+export async function deleteTodo(id: string) {
+  "use server"
+  await db.delete(todos).where(eq(todos.id, id));
+}
+
 
 type HomePageProps = {
   searchParams: {
@@ -28,7 +50,10 @@ export default async function HomePage({ searchParams: { page } }: HomePageProps
 
   return (
     <main className='container py-20'>
-      <h1 className='mb-6 text-3xl font-semibold'>Todo List</h1>
+      <div className='flex items-center justify-between'>
+        <h1 className='mb-6 text-3xl font-semibold'>Todo List</h1>
+        <Button>Add New</Button>
+      </div>
       <div className='mb-6 space-y-4'>
         {todos.map(todo => (
           <Todo key={todo.id} todo={todo} />
@@ -55,8 +80,8 @@ export default async function HomePage({ searchParams: { page } }: HomePageProps
 function Todo({ todo }: { todo: Todo }) {
   return (
     <div className='flex items-center gap-2'>
-      <Checkbox checked={todo.completed} />
-      <div>{todo.text}</div>
+      <Checkbox defaultChecked={todo.completed} id={todo.id} />
+      <label htmlFor={todo.id}>{todo.text}</label>
     </div>
   );
 }
