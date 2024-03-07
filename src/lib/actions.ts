@@ -13,6 +13,7 @@ export async function addTodo() {
   }
   await db.insert(todos).values({
     text: faker.lorem.sentence(),
+    completed: Math.random() > 0.5,
   });
   revalidateTag('todos');
 }

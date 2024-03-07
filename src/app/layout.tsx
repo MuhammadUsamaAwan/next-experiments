@@ -7,6 +7,8 @@ import { ThemeProvider } from '~/components/theme-provider';
 
 import '~/styles/globals.css';
 
+import { Toaster } from '~/components/ui/toaster';
+
 export const metadata: Metadata = {
   title: {
     default: siteConfig.title,
@@ -29,6 +31,7 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
       <body className={cn('flex min-h-screen flex-col font-sans antialiased', fontSans.variable)}>
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
           {children}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
