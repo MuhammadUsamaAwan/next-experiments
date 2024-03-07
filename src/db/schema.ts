@@ -8,3 +8,5 @@ export const todos = sqliteTable('todos', {
   completed: integer('completed', { mode: 'boolean' }).notNull().default(false),
   text: text('text').notNull(),
 });
+
+export type Todo = typeof todos.$inferSelect;

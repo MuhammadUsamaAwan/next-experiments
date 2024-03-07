@@ -4,7 +4,7 @@ import { drizzle } from 'drizzle-orm/better-sqlite3';
 
 import { todos } from '~/db/schema';
 
-export async function main() {
+async function main() {
   const sqlite = new Database('sqlite.db');
   const db = drizzle(sqlite);
   await Promise.all(
